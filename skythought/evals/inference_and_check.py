@@ -184,24 +184,32 @@ def inference(
 
         responses = [Response.from_openai_response(response) for response in responses]
     elif backend == Backend.VLLM:
-        batch_size = kwargs.get("batch_size", 1)
+        # batch_size = kwargs.get("batch_size", 1)
         engine_kwargs = copy.deepcopy(backend_params.to_dict())
         engine_kwargs["model"] = model_config.model_id
         llm = LLM(**engine_kwargs)
 
-        response_in_batches = [
-            llm.chat(
-                messages=conversations[i : i + batch_size],
-                sampling_params=sampling_params.params,
-                use_tqdm=True,
-                add_generation_prompt=model_config.assistant_prefill is None,
-                continue_final_message=model_config.assistant_prefill is not None,
-            )
-            for i in range(0, len(conversations), batch_size)
-        ]
-        responses = []
-        for response_batch in response_in_batches:
-            responses.extend(response_batch)
+        # response_in_batches = [
+        #     llm.chat(
+        #         messages=conversations[i : i + batch_size],
+        #         sampling_params=sampling_params.params,
+        #         use_tqdm=True,
+        #         add_generation_prompt=model_config.assistant_prefill is None,
+        #         continue_final_message=model_config.assistant_prefill is not None,
+        #     )
+        #     for i in tqdm(range(0, len(conversations), batch_size))
+        # ]
+        # responses = []
+        # for response_batch in response_in_batches:
+        #     responses.extend(response_batch)
+        print(f'=========> sampling_params: {sampling_params}')
+        responses = llm.chat(
+            messages=conversations,
+            sampling_params=sampling_params.params,
+            use_tqdm=True,
+            add_generation_prompt=model_config.assistant_prefill is None,
+            continue_final_message=model_config.assistant_prefill is not None,
+        )
         responses = [Response.from_vllm_response(response) for response in responses]
     else:
         raise ValueError(f"Invalid backend: {backend}")
@@ -245,6 +253,7 @@ def generate_responses_for_dataset(
     if not conversations:
         logger.info("No conversations to generate.")
         return id_to_results, [], []
+    
 
     # Perform inference
     responses = inference(

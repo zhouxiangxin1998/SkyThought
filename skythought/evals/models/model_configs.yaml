@@ -9,7 +9,7 @@ system_prompts:
         backtracing, and iteration to develop well-considered thinking process. \
         Please structure your response into two main sections: Thought and Solution. \
         In the Thought section, detail your reasoning process using the specified format: \
-        <|begin_of_thought|> {thought with steps separated with '\n\n'} \
+        <|begin_of_thought|> {thought with steps separated with '\\n\\n'} \
         <|end_of_thought|> \
         Each step should include detailed considerations such as analisying questions, summarizing \
         relevant findings, brainstorming new ideas, verifying the accuracy of the current steps, refining \
@@ -67,6 +67,12 @@ models:
   Qwen/Qwen2.5-Math-72B-Instruct:
     system_prompt: *qwen_cot_system_prompt
 
+  Qwen/Qwen3-4B-Base:
+    system_prompt: *qwen_cot_system_prompt
+
+  Qwen/Qwen3-8B-Base:
+    system_prompt: *qwen_cot_system_prompt
+
   PRIME-RL/Eurus-2-7B-PRIME:
     system_prompt: *prime_rl_system_prompt
 
@@ -75,3 +81,67 @@ models:
         
   NovaSky-AI/Sky-T1-32B-Flash: 
     system_prompt: *sky_t1_system_prompt
+
+  bespokelabs/Bespoke-Stratos-7B:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  bespokelabs/Bespoke-Stratos-32B:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Initial-Reasoning-4B:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Initial-Reasoning-7B:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Initial-Reasoning-8B:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Initial-Reasoning-32B:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-4B-GML:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-4B-Acc:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-8B-GML:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-8B-Acc:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-32B-GML:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-32B-Acc:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-PA-7B-GML:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-PB-7B-GML:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-PA-7B-Acc:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"
+
+  zhouxiangxin/Variational-Reasoning-PB-7B-Acc:
+    system_prompt: *sky_t1_system_prompt
+    assistant_prefill: "<begin_of_thought>\n\n"

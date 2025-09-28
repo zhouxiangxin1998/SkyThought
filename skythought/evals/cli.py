@@ -130,7 +130,7 @@ def parse_common_args(
     backend_params: BackendParameters = BackendParameters.from_dict(
         backend, backend_args_as_dict
     )
-
+    
     if sampling_params.params.top_p < 1 and model.startswith("openai/o1"):
         print(
             "OpenAI o1 models do not support `top_p` sampling. Resetting `top_p` to 1"

@@ -15,7 +15,7 @@ engine_kwargs: # vllm engine kwargs
   # enforce_eager: False
   # enable_chunked_prefill: True
   # max_num_batched_tokens: 8192
-  # max_seq_len_to_capture: 32768
+  max_seq_len_to_capture: 32768
 runtime_env:
   env_vars:
     VLLM_ATTENTION_BACKEND: "FLASH_ATTN"

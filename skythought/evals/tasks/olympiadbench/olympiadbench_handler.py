@@ -3,11 +3,12 @@ from skythought.evals.util.math_parsing_util import (
     math_equal,
     strip_answer_string,
 )
-
+from skythought.evals.util.common import TimeoutException, timeout
 from ..math.math_handler import MathTaskHandler
 
 
 class OlympiadBenchMathTaskHandler(MathTaskHandler):
+    @timeout(300)
     def check_correctness(self, problem, generation):
         # all problems have final answer in a list
         answer = strip_answer_string(problem[self.task_config.answer_key][0])

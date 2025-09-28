@@ -3,7 +3,7 @@ from skythought.evals.util.math_parsing_util import (
     math_equal,
     strip_answer_string,
 )
-
+from skythought.evals.util.common import TimeoutException, timeout
 from ..base import TaskHandler
 
 
@@ -11,6 +11,7 @@ class MathTaskHandler(TaskHandler):
     def generate_prompt(self, problem):
         return self.task_config.templating_parameters["template"].format(**problem)
 
+    @timeout(300)
     def check_correctness(self, problem, generation):
         answer = strip_answer_string(problem[self.task_config.answer_key])
         pred = extract_answer(generation)
@@ -24,13 +25,18 @@ class MathTaskHandler(TaskHandler):
             "correctness": None,
             "reason": None,
         }
-        curr_res = self.check_correctness(problem, generation=response)
-        if curr_res:
-            response_entry["correctness"] = True
-            response_entry["reason"] = ""
-        else:
+
+        try:
+            curr_res = self.check_correctness(problem, generation=response)
+            if curr_res:
+                response_entry["correctness"] = True
+                response_entry["reason"] = ""
+            else:
+                response_entry["correctness"] = False
+                response_entry["reason"] = "Solution is incorrect."
+        except TimeoutException as e:
             response_entry["correctness"] = False
-            response_entry["reason"] = "Solution is incorrect."
+            response_entry["reason"] = str(e)
 
         return response_entry
 

@@ -286,8 +286,6 @@ def run_test(
                 signal.alarm(timeout)
                 faulthandler.enable()
                 try:
-                    # print("------------")
-                    # print(inputs)
                     output = method(*inputs)
 
                     # ground truth sequences are not tuples
